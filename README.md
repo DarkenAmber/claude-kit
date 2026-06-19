@@ -31,18 +31,18 @@ claude-kit/
 |-------|-------------|---------|
 | [single-file-app](./skills/single-file-app/SKILL.md) | Build complete web tools as a single HTML file | Calculators, dashboards, generators |
 | [ship-it](./skills/ship-it/SKILL.md) | Bias toward shipping over planning | MVPs, side projects, validation |
+| [flutter-app](./skills/flutter-app/SKILL.md) | Build Flutter Android apps - offline-first, Google Drive sync | Mobile apps, cross-platform tools |
+| [indie-builder](./skills/indie-builder/SKILL.md) | Build and launch micro-SaaS as a solo developer | Pricing, distribution, first revenue |
+| [telegram-bot](./skills/telegram-bot/SKILL.md) | Build Telegram bots with aiogram 3.x - webhook, FSM, deployment | Notifications, automation, small business tools |
 
 ### Install a skill
 
 **Claude Code:**
 ```bash
-# single-file-app
+# single skill
 curl -o CLAUDE.md https://raw.githubusercontent.com/DarkenAmber/claude-kit/main/skills/single-file-app/SKILL.md
 
-# ship-it
-curl -o CLAUDE.md https://raw.githubusercontent.com/DarkenAmber/claude-kit/main/skills/ship-it/SKILL.md
-
-# Both together
+# combine multiple skills
 curl https://raw.githubusercontent.com/DarkenAmber/claude-kit/main/skills/single-file-app/SKILL.md > CLAUDE.md
 curl https://raw.githubusercontent.com/DarkenAmber/claude-kit/main/skills/ship-it/SKILL.md >> CLAUDE.md
 ```
@@ -50,7 +50,6 @@ curl https://raw.githubusercontent.com/DarkenAmber/claude-kit/main/skills/ship-i
 **Cursor / Windsurf:**
 ```bash
 curl https://raw.githubusercontent.com/DarkenAmber/claude-kit/main/skills/single-file-app/SKILL.md > .cursorrules
-curl https://raw.githubusercontent.com/DarkenAmber/claude-kit/main/skills/ship-it/SKILL.md >> .cursorrules
 ```
 
 **Claude.ai Projects:**
@@ -64,6 +63,7 @@ Copy the contents of any `SKILL.md` into your **Project Instructions**.
 |--------|-------------|---------|
 | [skills-server](./mcp/skills-server/) | Load and apply skills automatically | Python |
 | [memory-kit](./mcp/memory-kit/) | Persistent local memory between sessions | Python |
+| [telegram](./mcp/telegram/) | Send messages, photos, and files to Telegram | Python + bot token |
 
 ### Install MCP servers
 
@@ -75,6 +75,12 @@ python server.py
 
 # memory-kit
 cd mcp/memory-kit
+pip install -r requirements.txt
+python server.py
+
+# telegram (set bot token first)
+export TELEGRAM_BOT_TOKEN=your_token_here
+cd mcp/telegram
 pip install -r requirements.txt
 python server.py
 ```
@@ -90,6 +96,13 @@ python server.py
     "claude-kit-memory": {
       "command": "python",
       "args": ["/path/to/claude-kit/mcp/memory-kit/server.py"]
+    },
+    "claude-kit-telegram": {
+      "command": "python",
+      "args": ["/path/to/claude-kit/mcp/telegram/server.py"],
+      "env": {
+        "TELEGRAM_BOT_TOKEN": "your_token_here"
+      }
     }
   }
 }
