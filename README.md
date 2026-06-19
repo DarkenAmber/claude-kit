@@ -1,12 +1,52 @@
 # claude-kit
 
-> Stop re-explaining yourself to Claude. Skills and MCP servers that make Claude work the way you think.
+> Build software with Claude like a system, not prompts.
 
 Every time you start a new chat with Claude, it forgets everything and defaults to bad habits — over-engineering simple tools, ignoring your preferences, starting from scratch.
 
 **Skills fix the habits. MCP fixes the memory.**
 
-One file, five minutes, Claude starts working the way you want.
+---
+
+## Why this exists
+
+Claude is powerful. But without context it defaults to complexity — React for a calculator, a database for a to-do list, weeks of planning for a weekend project.
+
+`claude-kit` gives Claude the context it needs to work the way you think. One file changes how it reasons. One server gives it memory. Together they turn Claude from a generic assistant into a specialized tool that knows your workflow.
+
+---
+
+## How it works
+
+```
+You
+ ↓
+Claude Code / Cursor / Claude.ai
+ ↓
+Skills        — tell Claude how to think
+ ↓
+Memory        — what to remember between sessions
+ ↓
+MCP Servers   — what tools to use
+ ↓
+Ship faster
+```
+
+---
+
+## Quick start (5 minutes)
+
+```bash
+# 1. Pick a skill and install it
+curl -o CLAUDE.md https://raw.githubusercontent.com/DarkenAmber/claude-kit/main/skills/ship-it/SKILL.md
+
+# 2. Start Claude Code in your project
+claude
+
+# 3. Claude now ships instead of over-engineers
+```
+
+That is it. No config, no registration, no cloud.
 
 ---
 
@@ -14,8 +54,8 @@ One file, five minutes, Claude starts working the way you want.
 
 ```
 claude-kit/
-├── skills/        — copy SKILL.md to your project. No install needed.
-└── mcp/           — run server.py to give Claude new capabilities.
+├── skills/   — copy SKILL.md to your project. No install needed.
+└── mcp/      — run server.py to give Claude new capabilities.
 ```
 
 | Type | What it does | How to use |
@@ -33,14 +73,14 @@ claude-kit/
 | [ship-it](./skills/ship-it/SKILL.md) | Bias toward shipping over planning | MVPs, side projects, validation |
 | [flutter-app](./skills/flutter-app/SKILL.md) | Build Flutter Android apps - offline-first, Google Drive sync | Mobile apps, cross-platform tools |
 | [indie-builder](./skills/indie-builder/SKILL.md) | Build and launch micro-SaaS as a solo developer | Pricing, distribution, first revenue |
-| [telegram-bot](./skills/telegram-bot/SKILL.md) | Build Telegram bots with aiogram 3.x - webhook, FSM, deployment | Notifications, automation, small business tools |
+| [telegram-bot](./skills/telegram-bot/SKILL.md) | Build Telegram bots with aiogram 3.x - webhook, FSM, deployment | Notifications, automation, bots |
 
 ### Install a skill
 
 **Claude Code:**
 ```bash
 # single skill
-curl -o CLAUDE.md https://raw.githubusercontent.com/DarkenAmber/claude-kit/main/skills/single-file-app/SKILL.md
+curl -o CLAUDE.md https://raw.githubusercontent.com/DarkenAmber/claude-kit/main/skills/ship-it/SKILL.md
 
 # combine multiple skills
 curl https://raw.githubusercontent.com/DarkenAmber/claude-kit/main/skills/single-file-app/SKILL.md > CLAUDE.md
@@ -78,7 +118,7 @@ cd mcp/memory-kit
 pip install -r requirements.txt
 python server.py
 
-# telegram (set bot token first)
+# telegram
 export TELEGRAM_BOT_TOKEN=your_token_here
 cd mcp/telegram
 pip install -r requirements.txt
@@ -121,10 +161,20 @@ python server.py
 
 ---
 
+## Contributing
+
+New skills and MCP servers welcome. Each skill should:
+- Solve one specific problem
+- Have a clear `When to Use` and `Do NOT use when` section
+- Include a pre-ship checklist
+- Pass a code review before merging
+
+---
+
 ## License
 
 MIT - use it, modify it, share it.
 
 ---
 
-*If this helped you ship something - star the repo*
+*If this helped you ship something - star the repo ⭐*
