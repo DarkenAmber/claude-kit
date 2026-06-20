@@ -36,11 +36,13 @@ Ship faster
 
 ## Quick start (5 minutes)
 
+**What is CLAUDE.md?** It is a file that Claude Code reads automatically when you start it in a project. Skills go inside this file — that is how Claude learns your rules.
+
 ```bash
 # 1. Pick a skill and install it
 curl -o CLAUDE.md https://raw.githubusercontent.com/DarkenAmber/claude-kit/main/skills/ship-it/SKILL.md
 
-# 2. Start Claude Code in your project
+# 2. Start Claude Code in your project folder
 claude
 
 # 3. Claude now ships instead of over-engineers
@@ -77,23 +79,22 @@ claude-kit/
 
 ### Install a skill
 
-**Claude Code:**
+**Claude Code** — saves as `CLAUDE.md` in your project root. Claude reads it automatically.
 ```bash
 # single skill
 curl -o CLAUDE.md https://raw.githubusercontent.com/DarkenAmber/claude-kit/main/skills/ship-it/SKILL.md
 
-# combine multiple skills
+# combine multiple skills into one file
 curl https://raw.githubusercontent.com/DarkenAmber/claude-kit/main/skills/single-file-app/SKILL.md > CLAUDE.md
 curl https://raw.githubusercontent.com/DarkenAmber/claude-kit/main/skills/ship-it/SKILL.md >> CLAUDE.md
 ```
 
-**Cursor / Windsurf:**
+**Cursor / Windsurf** — saves as `.cursorrules` in your project root.
 ```bash
 curl https://raw.githubusercontent.com/DarkenAmber/claude-kit/main/skills/single-file-app/SKILL.md > .cursorrules
 ```
 
-**Claude.ai Projects:**
-Copy the contents of any `SKILL.md` into your **Project Instructions**.
+**Claude.ai Projects** — go to your Project → Settings → Project Instructions → paste the contents of any `SKILL.md`.
 
 ---
 
@@ -104,9 +105,17 @@ Copy the contents of any `SKILL.md` into your **Project Instructions**.
 | [skills-server](./mcp/skills-server/) | Load and apply skills automatically | Python |
 | [memory-kit](./mcp/memory-kit/) | Persistent local memory between sessions | Python |
 | [telegram](./mcp/telegram/) | Send messages, photos, and files to Telegram | Python + bot token |
+| [github](./mcp/github/) | Read issues, create PRs, manage repos | Python + GitHub token |
 
 ### Install MCP servers
 
+**Step 1 — Clone the repo**
+```bash
+git clone https://github.com/DarkenAmber/claude-kit.git
+cd claude-kit
+```
+
+**Step 2 — Install a server**
 ```bash
 # skills-server
 cd mcp/skills-server
@@ -118,35 +127,56 @@ cd mcp/memory-kit
 pip install -r requirements.txt
 python server.py
 
-# telegram
-export TELEGRAM_BOT_TOKEN=your_token_here
+# telegram (requires bot token from @BotFather)
 cd mcp/telegram
 pip install -r requirements.txt
-python server.py
+TELEGRAM_BOT_TOKEN=your_token_here python server.py
+
+# github (requires token from github.com/settings/tokens)
+cd mcp/github
+pip install -r requirements.txt
+GITHUB_TOKEN=your_token_here python server.py
 ```
 
-**Add to Claude Desktop** (`claude_desktop_config.json`):
+**Step 3 — Add to Claude Desktop**
+
+Open `claude_desktop_config.json`:
+- **Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
+- **Mac:** `~/Library/Application Support/Claude/claude_desktop_config.json`
+
 ```json
 {
   "mcpServers": {
     "claude-kit-skills": {
       "command": "python",
-      "args": ["/path/to/claude-kit/mcp/skills-server/server.py"]
+      "args": ["C:/Users/yourname/claude-kit/mcp/skills-server/server.py"]
     },
     "claude-kit-memory": {
       "command": "python",
-      "args": ["/path/to/claude-kit/mcp/memory-kit/server.py"]
+      "args": ["C:/Users/yourname/claude-kit/mcp/memory-kit/server.py"]
     },
     "claude-kit-telegram": {
       "command": "python",
-      "args": ["/path/to/claude-kit/mcp/telegram/server.py"],
+      "args": ["C:/Users/yourname/claude-kit/mcp/telegram/server.py"],
       "env": {
         "TELEGRAM_BOT_TOKEN": "your_token_here"
+      }
+    },
+    "claude-kit-github": {
+      "command": "python",
+      "args": ["C:/Users/yourname/claude-kit/mcp/github/server.py"],
+      "env": {
+        "GITHUB_TOKEN": "your_token_here"
       }
     }
   }
 }
 ```
+
+> Replace `C:/Users/yourname/claude-kit/` with your actual path.
+> On Mac use `/Users/yourname/claude-kit/` instead.
+
+Restart Claude Desktop after editing the config.
 
 ---
 
